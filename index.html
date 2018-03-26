@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+  <title>Untitled</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="bg">
+<br><br><br><br><br><br><br>
+<div class="container">
+    <form id="login">
+    <input type="text" name="uname" class="form-control" required="required"><br>
+    <input type="password" name="password" class="form-control" required="required"><br>
+    <input type="submit" name="submit" class="btn btn-primary" value="LOGIN">
+</form>
+<img src="preloader.gif" width="30" height="30" id="ploader" style="display: none;" />
+</div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="custom.js"></script>
+ <script>
+ 	$(function(){
+ if(localStorage.getItem("Uname")){
+ 	location.href="Main.html";
+}else{
+	
+}
+$("#login").on('submit', function(e){
+e.preventDefault();
+var fdata = $("#login").serialize();
+
+$.ajax({
+	url:server+"login.php",
+	data:fdata,
+	type:"post",
+	beforeSend:function(){
+		$("#ploader").show();
+	},
+	success: function(str){
+		$("#ploader").hide();
+		console.log(str);
+		if(str.Status == 'Success'){
+			localStorage.setItem("Uname",str.User);
+			location.href="Main.html";
+		}else{
+			alert("Sorry, wrong username/password");
+		}
+	}
+});
+});
+ 	});
+ </script>
+</body>
+
+</html>
