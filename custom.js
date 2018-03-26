@@ -1,0 +1,1 @@
+var server = "http://mukthasis.com//mtest/";
